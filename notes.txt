@@ -1,0 +1,30 @@
+### NOTES ###
+
+## GOAL ##
+To be able to search for the latest
+stock market data and have it returned
+to the user to see
+
+## SPECS ##
+- Vue.js Framework
+- Vuex (state management)
+- AlphaVantage API
+- Axios (for fetching)
+
+## FEATURES ##
+- Mobile responsiveness
+- Search bar that generates a dropdown
+of results as we type in the input
+(using search endpoint from API)
+- Have data returned from the API and
+shown to the user
+ - Users should be shown:
+   - Symbol
+   - Open, High, Low, Close, Volume
+   - Timezone
+
+*Stretch goals*
+- Show a chart when results are returned
+- let a user log in and save favorite stocks 
+ and they get shown to them in a very simple 
+ dashboard
