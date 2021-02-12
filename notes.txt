@@ -28,3 +28,12 @@ shown to the user
 - let a user log in and save favorite stocks 
  and they get shown to them in a very simple 
  dashboard
+
+ ##
+0NEGUY: it won't matter that it's in a nested component, you should just change the autocomplete-results to a <router-link> and then reference this to set up dynamic routes
+0NEGUY: https://router.vuejs.org/guide/essentials/dynamic-matching.html
+0NEGUY: @click the items and then call the api for data to display
+0NEGUY: if you want to do same page
+creativenull: you can start aiming for the each item click show info thingy u were talking about before and limit the api search
+0NEGUY: https://lodash.com/docs/#debounce
+creativenull: so like delay the api call after they're done typing

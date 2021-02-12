@@ -7,8 +7,9 @@
       id="search-input"
       v-model="searchValue"
       @input="onChange"
+      @blur="hidden = true"
     />
-    <div class="autocomplete-results-wrapper">
+    <div class="autocomplete-results-wrapper" v-if="!hidden">
       <div
         v-for="(results, index) in searchResults"
         :key="index"
@@ -29,6 +30,7 @@ export default {
     return {
       searchValue: "",
       searchResults: undefined,
+      hidden: true,
     };
   },
   methods: {
@@ -46,6 +48,7 @@ export default {
         .get(urlBase, { params })
         .then((res) => {
           console.log(res);
+          this.hidden = false;
           this.searchResults = res.data.bestMatches;
         })
         .catch((err) => {
