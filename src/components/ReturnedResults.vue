@@ -1,15 +1,16 @@
 <template>
-    <div>
-<h2>Blah blah results go here</h2>
-    </div>
+  <div class="returned-results">
+    <h2>Blah blah results go here</h2>
+  </div>
 </template>
 
 <script>
-    export default {
-        
-    }
+export default {};
 </script>
 
-<style lang="scss" scoped>
-
+<style lang="css" scoped>
+.returned-results {
+  position: relative;
+  z-index: -1;
+}
 </style>

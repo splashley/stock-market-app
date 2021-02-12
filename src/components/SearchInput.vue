@@ -1,5 +1,5 @@
 <template>
-  <div class="autocomplete-list">
+  <div class="autocomplete-search">
     <input
       type="text"
       class="autocomplete-input"
@@ -8,14 +8,16 @@
       v-model="searchValue"
       @input="onChange"
     />
+    <div class="autocomplete-results-wrapper">
       <div
         v-for="(results, index) in searchResults"
         :key="index"
-        class="autocomplete-result"
+        class="autocomplete-results"
       >
-        <div class="">{{ results["1. symbol"] }}</div> 
-        <div class="">{{ results["2. name"] }}</div>
+        <div class="autocomplete-result">{{ results["1. symbol"] }}</div>
+        <div class="autocomplete-result">{{ results["2. name"] }}</div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -55,22 +57,35 @@ export default {
 </script>
 
 <style lang="css" scoped>
-.autocomplete-list {
-    width: 300px;
-    margin: 0 auto;
+.autocomplete-search {
+  width: 300px;
+  margin: 0 auto;
+  position: relative;
 }
 .autocomplete-input {
-    padding: 10px;
-    width: 300px;
-    border-radius: 2px;
-    border: 1px solid black;
+  padding: 10px;
+  width: 300px;
+  border-radius: 2px;
+  border: 1px solid black;
 }
-.autocomplete-result {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.90rem;
-    width: 300px;
-    border: 1px solid black;
-    padding: 3px;
+
+.autocomplete-results-wrapper {
+  position: absolute;
+}
+.autocomplete-results {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  width: 300px;
+  border: 1px solid grey;
+  padding: 10px;
+  background-color: lightgray;
+  color: black;
+}
+
+.autocomplete-results:hover {
+  background-color: gray;
+  cursor: pointer;
 }
 </style>
