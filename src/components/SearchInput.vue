@@ -14,6 +14,7 @@
         v-for="(results, index) in searchResults"
         :key="index"
         class="autocomplete-results"
+        @click="getSingleResult($event)"
       >
         <div class="autocomplete-result">{{ results["1. symbol"] }}</div>
         <div class="autocomplete-result">{{ results["2. name"] }}</div>
@@ -35,7 +36,9 @@ export default {
   },
   methods: {
     onChange() {
-      this.apiCall();
+      if (this.searchValue.length >= 2) {
+        this.apiCall();
+      }
     },
     apiCall() {
       const urlBase = `https://www.alphavantage.co/query`;
@@ -54,6 +57,14 @@ export default {
         .catch((err) => {
           console.log(err);
         });
+    },
+    getResults(param) {
+      this.apiCall();
+      console.log(param);
+    },
+    getSingleResult(event) {
+       let targetId = event.currentTarget.id;
+      console.log("hello this works" + targetId);
     },
   },
 };

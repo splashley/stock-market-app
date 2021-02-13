@@ -1,11 +1,18 @@
 <template>
   <div class="returned-results">
-    <h2>Blah blah results go here</h2>
+    <section>
+      </section>
   </div>
 </template>
 
 <script>
-export default {};
+import { mapGetters } from "vuex";
+export default {
+  name: "Results",
+  computed: {
+    ...mapGetters(["results", "error"]),
+  },
+};
 </script>
 
 <style lang="css" scoped>
