@@ -1,6 +1,7 @@
 <template>
-  <div class="returned-results">
+  <div class="returned-results" v-if="results">
     <section>
+      {{ results }}
       </section>
   </div>
 </template>
@@ -10,7 +11,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "Results",
   computed: {
-    ...mapGetters(["results", "error"]),
+    ...mapGetters(["results"]),
   },
 };
 </script>

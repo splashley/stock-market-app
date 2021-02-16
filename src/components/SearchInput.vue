@@ -14,7 +14,7 @@
         v-for="(results, index) in searchResults"
         :key="index"
         class="autocomplete-results"
-        @click="getSingleResult($event)"
+        v-on:click="getSingleResult($event)"
       >
         <div class="autocomplete-result">{{ results["1. symbol"] }}</div>
         <div class="autocomplete-result">{{ results["2. name"] }}</div>
@@ -50,9 +50,10 @@ export default {
       axios
         .get(urlBase, { params })
         .then((res) => {
-          console.log(res);
+          console.log(res.data.bestMatches);
           this.hidden = false;
           this.searchResults = res.data.bestMatches;
+          this.$store.commit("setResults", res.data.bestMatches);
         })
         .catch((err) => {
           console.log(err);
@@ -62,9 +63,9 @@ export default {
       this.apiCall();
       console.log(param);
     },
-    getSingleResult(event) {
-       let targetId = event.currentTarget.id;
-      console.log("hello this works" + targetId);
+    getSingleResult(e) {
+      let targetId = e.currentTarget.id;
+      alert("hello this works" + targetId);
     },
   },
 };
