@@ -6,18 +6,23 @@
       placeholder="testing 1 2 3"
       id="search-input"
       v-model="searchValue"
-      @input="onChange"
-      @blur="hidden = true"
+      @input="onChange()"
     />
-    <div class="autocomplete-results-wrapper" v-if="!hidden">
+    <div
+      class="autocomplete-results-wrapper"
+      v-show="!hidden && searchResults && searchResults.length > -1"
+    >
       <div
-        v-for="(results, index) in searchResults"
+        v-for="(result, index) in searchResults"
         :key="index"
         class="autocomplete-results"
-        v-on:click="getSingleResult($event)"
+        @click="
+          searchValue = result['1. symbol'].toLowerCase();
+          getSingleResult(result, index);
+        "
       >
-        <div class="autocomplete-result">{{ results["1. symbol"] }}</div>
-        <div class="autocomplete-result">{{ results["2. name"] }}</div>
+        <div class="autocomplete-result">{{ result["1. symbol"] }}</div>
+        <div class="autocomplete-result">{{ result["2. name"] }}</div>
       </div>
     </div>
   </div>
@@ -32,15 +37,16 @@ export default {
       searchValue: "",
       searchResults: undefined,
       hidden: true,
+      symbol: "",
     };
   },
   methods: {
     onChange() {
       if (this.searchValue.length >= 2) {
-        this.apiCall();
+        this.getSearchResults();
       }
     },
-    apiCall() {
+    getSearchResults() {
       const urlBase = `https://www.alphavantage.co/query`;
       const params = {
         function: "SYMBOL_SEARCH",
@@ -50,22 +56,22 @@ export default {
       axios
         .get(urlBase, { params })
         .then((res) => {
-          console.log(res.data.bestMatches);
+          console.log(res);
           this.hidden = false;
           this.searchResults = res.data.bestMatches;
-          this.$store.commit("setResults", res.data.bestMatches);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    getResults(param) {
-      this.apiCall();
-      console.log(param);
-    },
-    getSingleResult(e) {
-      let targetId = e.currentTarget.id;
-      alert("hello this works" + targetId);
+
+    getSingleResult(result) {
+      this.hidden = true;
+      this.$store.commit("setResult", result); 
+      console.log(result["1. symbol"]);
+      // this.getSearchResultData(result.symbol)
+      this.symbol = result["1. symbol"];
+      this.getSearchResultData();
     },
   },
 };
@@ -83,7 +89,6 @@ export default {
   border-radius: 2px;
   border: 1px solid black;
 }
-
 .autocomplete-results-wrapper {
   position: absolute;
 }
@@ -98,7 +103,6 @@ export default {
   background-color: lightgray;
   color: black;
 }
-
 .autocomplete-results:hover {
   background-color: gray;
   cursor: pointer;
