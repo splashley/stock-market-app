@@ -1,40 +1,18 @@
 <template>
-  <div class="returned-results" v-show="storeData">
+  <div class="returned-results" v-if="returnedResult">
     <section>
-      {{storeData}}
-      {{ storeData["1. symbol"] }}
-      {{ storeData["2. name"] }}
+       {{ returnedResult }}
     </section>
   </div>
 </template>
 
 <script>
-import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
-  name: "Result",
+  name: "returnedResult",
   computed: {
-    storeData: function() {
-      return this.$store.state.result;
-    },
+    ...mapGetters(["returnedResult", "error"]),
   },
-  methods: {
-        getSearchResultData() {
-      const urlBase = `https://www.alphavantage.co/query`;
-      const params = {
-        function: "TIME_SERIES_DAILY",
-        symbol: this.symbol,
-        apikey: process.env.VUE_APP_ALPHA_VANTAGE_APIKEY,
-      };
-      axios
-        .get(urlBase, { params })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-  }
 };
 </script>
 

@@ -56,7 +56,6 @@ export default {
       axios
         .get(urlBase, { params })
         .then((res) => {
-          console.log(res);
           this.hidden = false;
           this.searchResults = res.data.bestMatches;
         })
@@ -67,11 +66,29 @@ export default {
 
     getSingleResult(result) {
       this.hidden = true;
-      this.$store.commit("setResult", result); 
-      console.log(result["1. symbol"]);
-      // this.getSearchResultData(result.symbol)
+      this.$store.commit("setResult", result);
       this.symbol = result["1. symbol"];
       this.getSearchResultData();
+      console.log(this.symbol);
+    },
+    getSearchResultData() {
+      const urlBase = `https://www.alphavantage.co/query`;
+      const params = {
+        function: "TIME_SERIES_DAILY",
+        symbol: this.symbol,
+        apikey: process.env.VUE_APP_ALPHA_VANTAGE_APIKEY,
+      };
+      axios
+        .get(urlBase, { params })
+        .then((res) => {
+          const returnedData = res.data["Time Series (Daily)"];
+          const lastItem = returnedData[Object.keys(returnedData)[0]];
+          this.$store.commit("setReturnedResult", lastItem);
+        })
+        .catch((err) => {
+          console.log(err);
+          this.$store.commit("setError", err.message);
+        });
     },
   },
 };

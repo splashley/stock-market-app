@@ -5,18 +5,18 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    results: undefined,
+    returnedResult: undefined,
     error: undefined,
     result: undefined,
   },
   getters: {
-    results: (state) => state.results,
+    returnedResult: (state) => state.returnedResult,
     error: (state) => state.error,
     result: (state) => state.result,
   },
   mutations: {
-    setResults(state, payload) {
-      state.results = payload;
+    setReturnedResult(state, payload) {
+      state.returnedResult = payload;
     },
     setResult(state, payload) {
       state.result = payload;
