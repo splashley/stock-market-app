@@ -1,24 +1,11 @@
-# stock-market-app
+# Stock Market App using Alpha Vantage API
 
-## Project setup
-```
-npm install
-```
+Users can search for companies to retrieve up to date stock information.
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## How It's Made:
 
-### Compiles and minifies for production
-```
-npm run build
-```
+**Tech used:** HTML, CSS, JavaScript, Vue.js, Vuex, Alpha Vantage API
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Lessons Learned:
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- N/A
